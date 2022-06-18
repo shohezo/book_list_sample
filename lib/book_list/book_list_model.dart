@@ -10,8 +10,6 @@ class BookListModel extends ChangeNotifier {
 
   List<Book>? books;
 
-
-
   //取得処理
   void fetchBookList() {
     _usersStream.listen((QuerySnapshot snapshot) {

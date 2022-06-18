@@ -1,13 +1,10 @@
 import 'package:book_list_sample/book_list/book_list_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../domain/book.dart';
 
 class BookListPage extends StatelessWidget {
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('books').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +12,7 @@ class BookListPage extends StatelessWidget {
       create: (_) => BookListModel()..fetchBookList(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('本一覧'),
+          title: Text('本の一覧'),
           centerTitle: true,
         ),
         body: Center(
