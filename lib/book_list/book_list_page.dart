@@ -12,7 +12,7 @@ class BookListPage extends StatelessWidget {
       create: (_) => BookListModel()..fetchBookList(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('本一覧にするよ'),
+          title: Text('本一覧'),
           centerTitle: true,
         ),
         body: Center(
