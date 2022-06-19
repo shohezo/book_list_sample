@@ -9,7 +9,7 @@ class AddBooktPage extends StatelessWidget {
       create: (_) => AddBookModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('本一覧'),
+          title: Text('本の追加'),
           centerTitle: true,
         ),
         body: Center(

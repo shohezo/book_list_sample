@@ -54,6 +54,7 @@ class BookListPage extends StatelessWidget {
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
+
                //本の追加が終わったら再読み込み
                model.fetchBookList();
               },
