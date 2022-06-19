@@ -39,7 +39,7 @@ class BookListPage extends StatelessWidget {
         floatingActionButton: Consumer<BookListModel>(builder: (context, model, child) {
             return FloatingActionButton(
               onPressed: () async{
-              final bool added = await Navigator.push(
+              final bool? added = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => AddBooktPage(),
