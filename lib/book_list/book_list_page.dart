@@ -1,10 +1,9 @@
-import 'package:book_list_sample/%20add_book/add_book_page.dart';
+import 'package:book_list_sample/add_book/add_book_page.dart';
 import 'package:book_list_sample/book_list/book_list_model.dart';
 import 'package:book_list_sample/edit_book/edit_book_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
-import '';
 import '../domain/book.dart';
 
 class BookListPage extends StatelessWidget {
@@ -16,6 +15,14 @@ class BookListPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('本一覧'),
           centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: (){
+                
+              },
+              icon: Icon(Icons.person),
+            ),
+          ],
         ),
         body: Center(
           child: Consumer<BookListModel>(builder: (context, model, child) {
@@ -29,6 +36,9 @@ class BookListPage extends StatelessWidget {
                 .map(
                   (book) => Slidable(
                     child: ListTile(
+                      leading: book.imgURL != null
+                          ? Image.network(book.imgURL!)
+                          : null,
                       title: Text(book.title),
                       subtitle: Text(book.author),
                     ),
@@ -62,7 +72,7 @@ class BookListPage extends StatelessWidget {
                           label: '編集',
                         ),
                         SlidableAction(
-                          onPressed: (value) async{
+                          onPressed: (value) async {
                             await showConfirmDialog(context, book, model);
                           },
                           backgroundColor: Color(0xFFFE4A49),
@@ -110,7 +120,8 @@ class BookListPage extends StatelessWidget {
     );
   }
 
-  Future showConfirmDialog(BuildContext context, Book book ,BookListModel model) {
+  Future showConfirmDialog(
+      BuildContext context, Book book, BookListModel model) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -125,7 +136,7 @@ class BookListPage extends StatelessWidget {
             ),
             TextButton(
               child: Text("OK"),
-              onPressed: () async{
+              onPressed: () async {
                 //modelで渡して削除渡す
                 await model.delete(book);
                 Navigator.pop(context);
@@ -134,8 +145,7 @@ class BookListPage extends StatelessWidget {
                   content: Text('${book.title}を削除しました'),
                 );
                 model.fetchBookList();
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(snackBar);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
             ),
           ],

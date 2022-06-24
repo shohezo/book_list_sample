@@ -6,6 +6,7 @@ class Book {
   String id = "";
   String title = "";
   String author = "";
+  String? imgURL = "";
 
-  Book(this.id,this.title,this.author);
+  Book(this.id,this.title,this.author,this.imgURL);
 }
