@@ -1,4 +1,4 @@
-import 'package:book_list_sample/add_book/add_book_model.dart';
+import 'package:book_list_sample/edit_profile/edit_profile_page.dart';
 import 'package:book_list_sample/mypage/my_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +12,29 @@ class MyPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('マイページ'),
           centerTitle: true,
+          actions: [
+            Consumer<MyModel>(
+              builder: (context, model, child) {
+                return IconButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            EditProfilePage(model.name!, model.description!),
+                      ),
+                    );
+                    model.fetchUser(); //編集したあとに戻ってきたら反映
+                  },
+                  icon: Icon(Icons.edit),
+                );
+              },
+            ),
+          ],
         ),
         body: Center(
-          child: Consumer<MyModel>(builder: (context, model, child) {
+          child: Consumer<MyModel>(
+              builder: (context, model, child) {
             return Stack(
               children: [
                 Padding(
@@ -24,12 +44,12 @@ class MyPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          '名前',
+                          model.name ?? "名前がありません",
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                         Text(model.email ?? 'メールアドレスがありません'), //TODO
-                        Text('自己紹介'),
+                        Text(model.description ?? "自己紹介がありません"),
                         TextButton(
                           onPressed: () async {
                             //ログアウト
