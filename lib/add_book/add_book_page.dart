@@ -2,7 +2,7 @@ import 'package:book_list_sample/add_book/add_book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddBooktPage extends StatelessWidget {
+class AddBookPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AddBookModel>(
