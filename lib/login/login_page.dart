@@ -1,20 +1,21 @@
-import 'package:book_list_sample/register/register_model.dart';
+import 'package:book_list_sample/login/login_model.dart';
+import 'package:book_list_sample/register/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class RegisterPage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<RegisterModel>(
-      create: (_) => RegisterModel(), //EditBookModelが作られる時にbookの情報も渡している
+    return ChangeNotifierProvider<LoginModel>(
+      create: (_) => LoginModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('新規登録'),
+          title: Text('ログイン'),
           centerTitle: true,
         ),
         body: Center(
-          child: Consumer<RegisterModel>(builder: (context, model, child) {
-            return Stack(
+          child: Consumer<LoginModel>(builder: (context, model, child) {
+            return Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -33,6 +34,7 @@ class RegisterPage extends StatelessWidget {
                         height: 8.0,
                       ),
                       TextField(
+                        obscureText: true,
                         controller: model.authorController,
                         decoration: InputDecoration(
                           hintText: 'パスワード',
@@ -49,20 +51,30 @@ class RegisterPage extends StatelessWidget {
                           model.startLoading();
                           //追加の処理
                           try {
-                            await model.signup();
+                            await model.login();
                             Navigator.of(context).pop();
                           } catch (e) {
                             final snackBar = SnackBar(
                               backgroundColor: Colors.red,
                               content: Text(e.toString()),
                             );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           }finally{
                             model.endLoading();
                           }
                         },
-                        child: Text('登録する'),
+                        child: Text('ログイン'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RegisterPage(),
+                            ),
+                          );
+                        },
+                        child: Text('新規登録の方はこちら'),
                       ),
                     ],
                   ),
